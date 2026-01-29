@@ -3,48 +3,95 @@
 <head>
     <title>Magic 8 ball</title>
     <style>
-        #ball {
-            width: 200px;
-            height: 200px;
-            background-color: rgb(0, 0, 0);
-            color: rgb(255, 255, 255);
-            border-radius: 50%;
-            text-align: center;
-            line-height: 1.6;
-            justify-self: center;
-            margin-top: 100px;
-            align-items: center;
-            padding: 100px;
-            position: relative;
-            z-index: 1;
-        }
+        
         body {
-            background-color: rgb(255, 255, 255);
+            background-color: white;
+            display: flex; /* Вмикаємо флекс для всього тіла */
+            flex-direction: column; /* Ставимо елементи стовпчиком */
+            align-items: center; /* Центруємо по горизонталі */
+            font-family: sans-serif;
+            min-height: 100vh;
         }
         h1 {
-            text-align: center;
-            color: rgb(0, 0, 0);
-
+            margin-top: 30px;
+        }
+        #ball {
+            width: 300px;
+            height: 300px;
+            background-color: black;
+            border-radius: 50%;
+            
+            /* Це робить кулю "базою" для позиціювання начинки */
+            position: relative; 
+            
+            /* Центруємо начинку всередині кулі */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            /* Тінь для об'єму (краса) */
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
         }
         #triangle {
-            width: 200px;
-            height: 200px;
-            background-color: rgb(125, 0, 156);
+            width: 140px;
+            height: 140px;
+            background-color: rgb(125, 0, 156); /* Фіолетовий */
+            
+            /* Твій крутий метод clip-path! */
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            position: absolute;
-            top: 100px;
-            bottom: 100px;
-            z-index: 0;
+            /* Перевернемо його, як в оригінальній іграшці (вершиною вниз) */
+            /*transform: rotate(180deg);*/
+            
+            position: absolute; /* Накладаємо поверх чорного фону */
+        }
+        #answer {
+            color: white;
+            font-size: 20px; /* РОЗМІР ШРИФТУ ТУТ */
+            font-weight: bold;
+            text-align: center;
+            width: 100px; /* Обмежуємо ширину, щоб слова переносились */
+            z-index: 10; /* Найвищий пріоритет - лежить зверху */
+            position: relative; /* Щоб z-index спрацював */
+            top: -10px; /* Трохи піднімаємо, щоб було по центру трикутника */
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: orange;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            background-color: darkorange;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 <h1>Think about your question...</h1>
-<div id="ball">
-    <h2>8</h2>
-    <p>Thinking...</p>
+    <div id="ball">
+        <div id="triangle"></div>
+        <div id="answer">8</div>
+    </div>
     <button onclick="shakeTheBall()">Shake</button>
-    <div id="triangle"></div>
 </div>
+<script>
+        function shakeTheBall() {
+            // Список відповідей
+            let answers = ["Yes", "No", "Maybe", "Ask later", "100%", "No way"];
+            
+            // 1. Знаходимо текст
+            let answerElement = document.getElementById("answer");
+            
+            // 2. Рандом
+            let randomIndex = Math.floor(Math.random() * answers.length);
+            
+            // 3. Міняємо текст
+            answerElement.innerText = answers[randomIndex];
+        }
+    </script>
 </body>
 </html>
